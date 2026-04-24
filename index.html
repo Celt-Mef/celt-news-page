@@ -1,667 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="ext-resource-dependency" content="assets/CELTBackgroundImage.jpg" data-resource-id="celtBg" />
-  <title>CELT News</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CELT News</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --blue: #3B4AC8;
-      --blue-dark: #1a1a2e;
-      --blue-light: #dce3fb;
-      --coral: #E84855;
-      --linkedin: #0A66C2;
-      --white: #ffffff;
-      --gray: #f4f6fb;
-      --text: #1a1a2e;
-      --text-muted: #6b7280;
-    }
+  :root {
+    --blue: #3B4AC8;
+    --blue-dark: #1a1a2e;
+    --blue-light: #dce3fb;
+    --coral: #E84855;
+    --linkedin: #0A66C2;
+    --white: #ffffff;
+    --gray: #f4f6fb;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+  }
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      font-family: 'DM Sans', sans-serif;
-      background: var(--gray);
-      color: var(--text);
-    }
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray);
+    color: var(--text);
+  }
 
-    .module {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 28px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+  .module {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-    /* ── Section heading ── */
-    .module-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 28px;
-      color: var(--blue-dark);
-      letter-spacing: -0.02em;
-      padding-bottom: 6px;
-      border-bottom: 2px solid var(--blue);
-      display: inline-block;
-    }
+  /* ── Section heading ── */
+  .module-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    color: var(--blue-dark);
+    letter-spacing: -0.02em;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--blue);
+    display: inline-block;
+  }
 
-    /* ── Workshop Hero ── */
-    .workshop-hero {
-      border-radius: 14px;
-      overflow: hidden;
-      position: relative;
-      min-height: 180px;
-      display: flex;
-      align-items: center;
-      background: var(--blue-dark);
-      color: white;
-      transition: filter 0.2s;
-    }
+  /* ── Workshop Hero ── */
+  .workshop-hero {
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    background: var(--blue-dark);
+    color: white;
+    transition: filter 0.2s;
+  }
+  .workshop-hero:hover { filter: brightness(1.07); }
 
-    .workshop-hero:hover {
-      filter: brightness(1.07);
-    }
+  .workshop-bg {
+    position: absolute; inset: 0;
+    background-image: url('assets/CELTBackgroundImage.jpg');
+    background-size: cover;
+    background-position: center right;
+    opacity: 0.22;
+  }
 
-    .workshop-bg {
-      position: absolute;
-      inset: 0;
-      background-image: var(--celt-bg-url, url('assets/CELTBackgroundImage.jpg'));
-      background-size: cover;
-      background-position: center right;
-      opacity: 0.22;
-    }
+  .workshop-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, #1a1a2e 45%, transparent 100%);
+  }
 
-    .workshop-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, #1a1a2e 45%, transparent 100%);
-    }
+  .workshop-content {
+    position: relative;
+    z-index: 1;
+    padding: 28px 36px;
+    flex: 1;
+  }
 
-    .workshop-content {
-      position: relative;
-      z-index: 1;
-      padding: 28px 36px;
-      flex: 1;
-    }
+  .workshop-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--coral);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
 
-    .workshop-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--coral);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-    }
+  .workshop-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    color: white;
+  }
 
-    .workshop-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 26px;
-      line-height: 1.15;
-      margin-bottom: 8px;
-      color: white;
-    }
+  .workshop-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 18px;
+    max-width: 420px;
+    line-height: 1.55;
+  }
 
-    .workshop-desc {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.72);
-      margin-bottom: 18px;
-      max-width: 420px;
-      line-height: 1.55;
-    }
+  .workshop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--blue-dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .workshop-btn:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .workshop-btn svg { width: 15px; height: 15px; }
 
-    .workshop-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      color: var(--blue-dark);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 10px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.15s, transform 0.15s;
-    }
+  .workshop-deco {
+    position: absolute;
+    right: 32px; top: 50%;
+    transform: translateY(-50%);
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.15);
+    pointer-events: none;
+  }
+  .workshop-deco::after {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.1);
+  }
 
-    .workshop-btn:hover {
-      background: var(--blue-light);
-      transform: translateY(-1px);
-    }
+  /* ── Social row ── */
+  .social-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 0 4px;
+  }
+  .social-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-right: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .social-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .social-btn:hover { transform: translateY(-2px); opacity: 0.88; }
+  .social-btn svg { width: 18px; height: 18px; }
+  .social-btn.linkedin  { background: #0A66C2; }
+  .social-btn.instagram { background: radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+  .social-btn.x-twitter { background: #000; }
+  .social-btn.youtube   { background: #FF0000; }
 
-    .workshop-btn svg {
-      width: 15px;
-      height: 15px;
-    }
+  /* ── Bottom row ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    align-items: start;
+  }
 
-    .workshop-deco {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px dashed rgba(255, 255, 255, 0.15);
-      pointer-events: none;
-    }
+  /* ── Bulletin Card ── */
+  .bulletin-card {
+    border-radius: 14px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(58,74,200,0.08);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text);
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1.5px solid rgba(58,74,200,0.1);
+  }
+  .bulletin-card:hover {
+    box-shadow: 0 6px 24px rgba(58,74,200,0.16);
+    transform: translateY(-2px);
+  }
 
-    .workshop-deco::after {
-      content: '';
-      position: absolute;
-      inset: 16px;
-      border-radius: 50%;
-      border: 2px dashed rgba(255, 255, 255, 0.1);
-    }
+  .bulletin-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--blue-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
 
-    /* ── Social row ── */
-    .social-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 14px 0 4px;
-    }
+  .bulletin-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 
-    .social-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-right: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+  /* Fallback bulletin cover (shown if img fails) */
+  .bulletin-fallback {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #3B4AC8 100%);
+    color: white;
+    text-align: center;
+    padding: 16px;
+    gap: 6px;
+  }
+  .bulletin-fallback .bf-uni { font-size: 10px; letter-spacing: 0.15em; opacity: 0.6; text-transform: uppercase; }
+  .bulletin-fallback .bf-title { font-family: 'DM Serif Display', serif; font-size: 28px; letter-spacing: -0.01em; }
+  .bulletin-fallback .bf-sub { font-size: 11px; letter-spacing: 0.1em; opacity: 0.7; text-transform: uppercase; }
+  .bulletin-fallback .bf-vol { font-size: 10px; opacity: 0.5; margin-top: 4px; }
+  .bulletin-fallback .bf-star {
+    color: var(--coral); font-size: 20px; line-height: 1;
+  }
 
-    .social-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-decoration: none;
-      transition: transform 0.15s, opacity 0.15s;
-    }
+  .bulletin-footer {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #eef0f8;
+  }
+  .bulletin-footer-label {
+    font-size: 13px; font-weight: 700; color: var(--blue-dark);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .bulletin-footer-link {
+    font-size: 13px; color: var(--blue); font-weight: 600;
+    display: flex; align-items: center; gap: 4px;
+  }
 
-    .social-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.88;
-    }
+  /* ── LinkedIn Card ── */
+  .linkedin-card {
+    border-radius: 14px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(58,74,200,0.08);
+    display: flex;
+    flex-direction: column;
+    border: 1.5px solid rgba(58,74,200,0.1);
+  }
 
-    .social-btn svg {
-      width: 18px;
-      height: 18px;
-    }
+  .linkedin-header {
+    background: var(--linkedin);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .linkedin-logo {
+    width: 28px; height: 28px;
+    background: white;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .linkedin-logo svg { width: 18px; height: 18px; }
+  .linkedin-header-text { flex: 1; }
+  .linkedin-header-title { font-size: 14px; font-weight: 700; line-height: 1; }
+  .linkedin-header-sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
 
-    .social-btn.linkedin {
-      background: #0A66C2;
-    }
+  .linkedin-follow-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: white; color: var(--linkedin);
+    font-size: 12px; font-weight: 700;
+    padding: 5px 12px; border-radius: 20px;
+    text-decoration: none; flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .linkedin-follow-btn:hover { background: #e8f0fb; }
 
-    .social-btn.instagram {
-      background: radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    }
+  .curator-wrap {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 300px;
+    max-height: 420px;
+    background: #f3f6f9;
+    padding: 12px;
+  }
+  .curator-wrap .crt-logo { display: none; }
 
-    .social-btn.x-twitter {
-      background: #000;
-    }
-
-    .social-btn.youtube {
-      background: #FF0000;
-    }
-
-    /* ── Bottom row ── */
-    .bottom-row {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    /* ── Bulletin Card ── */
-    .bulletin-card {
-      border-radius: 14px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 2px 12px rgba(58, 74, 200, 0.08);
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: var(--text);
-      transition: box-shadow 0.2s, transform 0.2s;
-      border: 1.5px solid rgba(58, 74, 200, 0.1);
-    }
-
-    .bulletin-card:hover {
-      box-shadow: 0 6px 24px rgba(58, 74, 200, 0.16);
-      transform: translateY(-2px);
-    }
-
-    .bulletin-img-wrap {
-      width: 100%;
-      overflow: hidden;
-      background: var(--blue-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .bulletin-img-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Fallback bulletin cover (shown if img fails) */
-    .bulletin-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #1a1a2e 0%, #3B4AC8 100%);
-      color: white;
-      text-align: center;
-      padding: 16px;
-      gap: 6px;
-    }
-
-    .bulletin-fallback .bf-uni {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      opacity: 0.6;
-      text-transform: uppercase;
-    }
-
-    .bulletin-fallback .bf-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
-      letter-spacing: -0.01em;
-    }
-
-    .bulletin-fallback .bf-sub {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      opacity: 0.7;
-      text-transform: uppercase;
-    }
-
-    .bulletin-fallback .bf-vol {
-      font-size: 10px;
-      opacity: 0.5;
-      margin-top: 4px;
-    }
-
-    .bulletin-fallback .bf-star {
-      color: var(--coral);
-      font-size: 20px;
-      line-height: 1;
-    }
-
-    .bulletin-footer {
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid #eef0f8;
-    }
-
-    .bulletin-footer-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--blue-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .bulletin-footer-link {
-      font-size: 13px;
-      color: var(--blue);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* ── LinkedIn Card ── */
-    .linkedin-card {
-      border-radius: 14px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 2px 12px rgba(58, 74, 200, 0.08);
-      display: flex;
-      flex-direction: column;
-      border: 1.5px solid rgba(58, 74, 200, 0.1);
-    }
-
-    .linkedin-header {
-      background: var(--linkedin);
-      color: white;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .linkedin-logo {
-      width: 28px;
-      height: 28px;
-      background: white;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .linkedin-logo svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .linkedin-header-text {
-      flex: 1;
-    }
-
-    .linkedin-header-title {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .linkedin-header-sub {
-      font-size: 11px;
-      opacity: 0.8;
-      margin-top: 2px;
-    }
-
-    .linkedin-follow-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: white;
-      color: var(--linkedin);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 20px;
-      text-decoration: none;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-
-    .linkedin-follow-btn:hover {
-      background: #e8f0fb;
-    }
-
-    .curator-wrap {
-      flex: 1;
-      overflow-y: auto;
-      min-height: 300px;
-      max-height: 420px;
-      background: #f3f6f9;
-      padding: 12px;
-    }
-
-    .curator-wrap .crt-logo {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .bottom-row {
-        grid-template-columns: 1fr;
-      }
-
-      .workshop-content {
-        padding: 20px;
-      }
-
-      .workshop-title {
-        font-size: 20px;
-      }
-
-      .module {
-        padding: 16px 12px;
-      }
-    }
-  </style>
+  @media (max-width: 600px) {
+    .bottom-row { grid-template-columns: 1fr; }
+    .workshop-content { padding: 20px; }
+    .workshop-title { font-size: 20px; }
+    .module { padding: 16px 12px; }
+  }
+</style>
 </head>
-
 <body>
 
-  <div class="module">
-    <h2 class="module-title">CELT News</h2>
+<div class="module">
+  <h2 class="module-title">CELT News</h2>
 
-    <!-- Workshop Hero -->
-    <div class="workshop-hero"
-      onclick="window.open('https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops','_blank')"
-      style="cursor:pointer;">
-      <div class="workshop-bg"></div>
-      <div class="workshop-overlay"></div>
-      <div class="workshop-content">
-        <div class="workshop-badge">
-          <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px">
-            <path
-              d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12zm.75-9.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM7.25 6.5h1.5v5h-1.5z" />
-          </svg>
-          UPCOMING WORKSHOPS !
+  <!-- Workshop Hero -->
+  <div class="workshop-hero" onclick="window.open('https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops','_blank')" style="cursor:pointer;">
+    <div class="workshop-bg"></div>
+    <div class="workshop-overlay"></div>
+    <div class="workshop-content">
+      <div class="workshop-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12zm.75-9.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM7.25 6.5h1.5v5h-1.5z"/></svg>
+        UPCOMING WORKSHOPS !
+      </div>
+      <div class="workshop-title">CELT Workshops</div>
+      <div class="workshop-desc" style="width: 483px; height: 90px; line-height: 1.65">Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</div>
+      <a class="workshop-btn" href="https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+        Click Here to Explore
+      </a>
+    </div>
+    <div class="workshop-deco"></div>
+  </div>
+
+  <!-- Social Media Row -->
+  <div class="social-row">
+    <span class="social-label">Follow us</span>
+    <a class="social-btn linkedin" href="https://www.linkedin.com/company/mef-celt?originalSubdomain=tr" target="_blank" rel="noopener" title="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.851-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.352V9h3.414v1.561h.046c.476-.9 1.635-1.851 3.366-1.851 3.6 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a class="social-btn instagram" href="https://www.instagram.com/mefuniversitycelt/" target="_blank" rel="noopener" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+    </a>
+    <a class="social-btn x-twitter" href="https://twitter.com/mefcelt" target="_blank" rel="noopener" title="X / Twitter">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a class="social-btn youtube" href="https://www.youtube.com/@mefuniversitycelt" target="_blank" rel="noopener" title="YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </a>
+  </div>
+
+  <!-- Bottom Row -->
+  <div class="bottom-row">
+
+    <!-- Bulletin -->
+    <a class="bulletin-card" href="https://drive.google.com/file/u/1/d/1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7/view?usp=sharing" target="_blank" rel="noopener">
+      <div class="bulletin-img-wrap">
+        <img
+          src="https://drive.google.com/thumbnail?id=1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7&sz=w600"
+          alt="CELT Bulletin Cover"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="bulletin-fallback" style="display:none;">
+          <div class="bf-uni">MEF University</div>
+          <div class="bf-star">✦</div>
+          <div class="bf-title">CELT<br>BULLETIN</div>
+          <div class="bf-sub">Vol. 12 · 25–26 Fall</div>
         </div>
-        <div class="workshop-title">CELT Workshops</div>
-        <div class="workshop-desc">Explore professional development workshops designed for academics and educators at
-          MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.
+      </div>
+      <div class="bulletin-footer">
+        <span class="bulletin-footer-label">📄 CELT Bulletin</span>
+        <span class="bulletin-footer-link">
+          View latest
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- LinkedIn / Curator Feed -->
+    <div class="linkedin-card">
+      <div class="linkedin-header">
+        <div class="linkedin-logo">
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.851-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.352V9h3.414v1.561h.046c.476-.9 1.635-1.851 3.366-1.851 3.6 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </div>
-        <a class="workshop-btn" href="https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops"
-          target="_blank" rel="noopener" onclick="event.stopPropagation()">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M2 8h12M9 3l5 5-5 5" />
-          </svg>
-          Click Here to Explore
+        <div class="linkedin-header-text">
+          <div class="linkedin-header-title">MEF University CELT</div>
+          <div class="linkedin-header-sub">Latest posts from our LinkedIn page</div>
+        </div>
+        <a class="linkedin-follow-btn" href="https://www.linkedin.com/company/mef-celt?originalSubdomain=tr" target="_blank" rel="noopener">
+          + Follow
         </a>
       </div>
-      <div class="workshop-deco"></div>
-    </div>
-
-    <!-- Social Media Row -->
-    <div class="social-row">
-      <span class="social-label">Follow us</span>
-      <a class="social-btn linkedin" href="https://www.linkedin.com/company/mef-celt?originalSubdomain=tr"
-        target="_blank" rel="noopener" title="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.851-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.352V9h3.414v1.561h.046c.476-.9 1.635-1.851 3.366-1.851 3.6 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-        </svg>
-      </a>
-      <a class="social-btn instagram" href="https://www.instagram.com/mefuniversitycelt/" target="_blank" rel="noopener"
-        title="Instagram">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-        </svg>
-      </a>
-      <a class="social-btn x-twitter" href="https://twitter.com/mefcelt" target="_blank" rel="noopener"
-        title="X / Twitter">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-        </svg>
-      </a>
-      <a class="social-btn youtube" href="https://www.youtube.com/@mefuniversitycelt" target="_blank" rel="noopener"
-        title="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-        </svg>
-      </a>
-    </div>
-
-    <!-- Bottom Row -->
-    <div class="bottom-row">
-
-      <!-- Bulletin -->
-      <a class="bulletin-card"
-        href="https://drive.google.com/file/u/1/d/1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7/view?usp=sharing" target="_blank"
-        rel="noopener">
-        <div class="bulletin-img-wrap">
-          <img src="https://drive.google.com/thumbnail?id=1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7&sz=w600"
-            alt="CELT Bulletin Cover"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-          <div class="bulletin-fallback" style="display:none;">
-            <div class="bf-uni">MEF University</div>
-            <div class="bf-star">✦</div>
-            <div class="bf-title">CELT<br>BULLETIN</div>
-            <div class="bf-sub">Vol. 12 · 25–26 Fall</div>
-          </div>
-        </div>
-        <div class="bulletin-footer">
-          <span class="bulletin-footer-label">📄 CELT Bulletin</span>
-          <span class="bulletin-footer-link">
-            View latest
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round">
-              <path d="M3 8h10M8 3l5 5-5 5" />
-            </svg>
-          </span>
-        </div>
-      </a>
-
-      <!-- LinkedIn / Curator Feed -->
-      <div class="linkedin-card">
-        <div class="linkedin-header">
-          <div class="linkedin-logo">
-            <svg viewBox="0 0 24 24" fill="#0A66C2">
-              <path
-                d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.851-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.352V9h3.414v1.561h.046c.476-.9 1.635-1.851 3.366-1.851 3.6 0 4.267 2.37 4.267 5.455v6.287zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-          </div>
-          <div class="linkedin-header-text">
-            <div class="linkedin-header-title">MEF University CELT</div>
-            <div class="linkedin-header-sub">Latest posts from our LinkedIn page</div>
-          </div>
-          <a class="linkedin-follow-btn" href="https://www.linkedin.com/company/mef-celt?originalSubdomain=tr"
-            target="_blank" rel="noopener">
-            + Follow
-          </a>
-        </div>
-        <div class="curator-wrap">
-          <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank"
-              class="crt-logo crt-tag">Powered by Curator.io</a></div>
-        </div>
+      <div class="curator-wrap">
+        <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
       </div>
-
     </div>
+
   </div>
 
-  <!-- Tweaks -->
-  <div id="tweaks-panel"
-    style="display:none; position:fixed; bottom:20px; right:20px; background:white; border:2px solid #1a1a2e; border-radius:10px; padding:16px; width:230px; z-index:9999; font-family:'DM Sans',sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-    <div style="font-size:15px; font-weight:700; margin-bottom:14px; color:#1a1a2e;">Tweaks</div>
-
-    <label style="font-size:13px; display:block; margin-bottom:10px; color:#444;">
-      Workshop accent color
-      <select id="tw-accent"
-        style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:13px; border:1.5px solid #ddd; border-radius:6px; padding:5px;">
-        <option value="#1a1a2e">Navy (default)</option>
-        <option value="#3B4AC8">CELT Blue</option>
-        <option value="#E84855">Coral Red</option>
-      </select>
-    </label>
-
-    <label style="font-size:13px; display:block; margin-bottom:10px; color:#444;">
-      Workshop description
-      <textarea id="tw-desc" rows="3"
-        style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:12px; border:1.5px solid #ddd; border-radius:6px; padding:6px; resize:none;">Explore professional development workshops for MEF University instructors. Browse sessions, register and grow your teaching practice.</textarea>
-    </label>
-
-    <button onclick="applyTweaks()"
-      style="width:100%; background:#3B4AC8; color:white; border:none; border-radius:6px; padding:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;">Apply</button>
+  <!-- Bulletins Hero -->
+  <div class="workshop-hero" onclick="window.open('https://www.mef.edu.tr/en/celt/bulletins','_blank')" style="cursor:pointer;">
+    <div class="workshop-bg" style="background-position: center left;"></div>
+    <div class="workshop-overlay" style="background: linear-gradient(105deg, #2d1a6e 45%, transparent 100%);"></div>
+    <div class="workshop-content">
+      <div class="workshop-badge" style="background:#3B4AC8;">
+        <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px"><path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm1 3v1h10V5H3zm0 3v1h7V8H3z"/></svg>
+        CELT BULLETINS
+      </div>
+      <div class="workshop-title">CELT Bulletins</div>
+      <div class="workshop-desc">Browse all our published bulletins packed with teaching insights, research highlights, and CELT news.</div>
+      <a class="workshop-btn" href="https://www.mef.edu.tr/en/celt/bulletins" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+        Click Here to Read & Explore
+      </a>
+    </div>
+    <div class="workshop-deco"></div>
   </div>
 
-  <script>
-    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{ "accent": "#1a1a2e", "desc": "Explore professional development workshops for MEF University instructors. Browse sessions, register and grow your teaching practice." }/*EDITMODE-END*/;
+</div>
 
-    window.addEventListener('message', e => {
-      if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
-      if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
-    });
-    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+<!-- Tweaks -->
+<div id="tweaks-panel" style="display:none; position:fixed; bottom:20px; right:20px; background:white; border:2px solid #1a1a2e; border-radius:10px; padding:16px; width:230px; z-index:9999; font-family:'DM Sans',sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+  <div style="font-size:15px; font-weight:700; margin-bottom:14px; color:#1a1a2e;">Tweaks</div>
 
-    function applyTweaks() {
-      const accent = document.getElementById('tw-accent').value;
-      const desc = document.getElementById('tw-desc').value;
-      document.querySelector('.workshop-hero').style.setProperty('--hero-accent', accent);
-      document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${accent} 45%, transparent 100%)`;
-      document.querySelector('.workshop-desc').textContent = desc;
-      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent, desc } }, '*');
-    }
+  <label style="font-size:13px; display:block; margin-bottom:10px; color:#444;">
+    Workshop accent color
+    <select id="tw-accent" style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:13px; border:1.5px solid #ddd; border-radius:6px; padding:5px;">
+      <option value="#1a1a2e">Navy (default)</option>
+      <option value="#3B4AC8">CELT Blue</option>
+      <option value="#E84855">Coral Red</option>
+    </select>
+  </label>
 
-    // Apply saved defaults on load
-    document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${TWEAK_DEFAULTS.accent} 45%, transparent 100%)`;
-    document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
+  <label style="font-size:13px; display:block; margin-bottom:10px; color:#444;">
+    Workshop description
+    <textarea id="tw-desc" rows="3" style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:12px; border:1.5px solid #ddd; border-radius:6px; padding:6px; resize:none;">Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</textarea>
+  </label>
 
-    // Apply inlined background image if available
-    if (window.__resources && window.__resources.celtBg) {
-      document.documentElement.style.setProperty('--celt-bg-url', `url('${window.__resources.celtBg}')`);
-    }
-  </script>
+  <button onclick="applyTweaks()" style="width:100%; background:#3B4AC8; color:white; border:none; border-radius:6px; padding:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;">Apply</button>
+</div>
 
-  <template id="__bundler_thumbnail" data-bg-color="#1a1a2e">
-    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-      <rect width="400" height="300" fill="#1a1a2e" />
-      <!-- Workshop hero -->
-      <rect x="24" y="24" width="352" height="90" rx="10" fill="#3B4AC8" opacity="0.9" />
-      <rect x="40" y="38" width="60" height="12" rx="6" fill="#E84855" />
-      <rect x="40" y="58" width="160" height="14" rx="4" fill="white" opacity="0.9" />
-      <rect x="40" y="78" width="120" height="8" rx="3" fill="white" opacity="0.4" />
-      <rect x="40" y="96" width="80" height="12" rx="6" fill="white" opacity="0.8" />
-      <!-- Social row -->
-      <circle cx="170" cy="138" r="10" fill="#0A66C2" />
-      <circle cx="196" cy="138" r="10" fill="#dc2743" />
-      <circle cx="222" cy="138" r="10" fill="#000" />
-      <circle cx="248" cy="138" r="10" fill="#FF0000" />
-      <!-- Bulletin -->
-      <rect x="24" y="160" width="110" height="120" rx="8" fill="#3B4AC8" opacity="0.7" />
-      <rect x="24" y="252" width="110" height="28" rx="0" fill="white" opacity="0.15" />
-      <!-- LinkedIn -->
-      <rect x="148" y="160" width="228" height="120" rx="8" fill="#0A66C2" opacity="0.3" />
-      <rect x="148" y="160" width="228" height="24" rx="8" fill="#0A66C2" />
-      <rect x="156" y="168" width="80" height="8" rx="3" fill="white" opacity="0.9" />
-    </svg>
-  </template>
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accent":"#1a1a2e","desc":"Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice."}/*EDITMODE-END*/;
 
-  <!-- Curator.io LinkedIn Feed -->
-  <script type="text/javascript">
-    (function () {
-      var i, e, d = document, s = "script"; i = d.createElement("script"); i.async = 1; i.charset = "UTF-8";
-      i.src = "https://cdn.curator.io/published/579820dc-fc14-4684-b98a-b6eadae1a234.js";
-      e = d.getElementsByTagName(s)[0]; e.parentNode.insertBefore(i, e);
-    })();
-  </script>
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+  });
+  window.parent.postMessage({type: '__edit_mode_available'}, '*');
+
+  function applyTweaks() {
+    const accent = document.getElementById('tw-accent').value;
+    const desc = document.getElementById('tw-desc').value;
+    document.querySelector('.workshop-hero').style.setProperty('--hero-accent', accent);
+    document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${accent} 45%, transparent 100%)`;
+    document.querySelector('.workshop-desc').textContent = desc;
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{accent, desc}}, '*');
+  }
+
+  // Apply saved defaults on load
+  document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${TWEAK_DEFAULTS.accent} 45%, transparent 100%)`;
+  document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
+</script>
+
+<!-- Curator.io LinkedIn Feed -->
+<script type="text/javascript">
+(function(){
+var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";
+i.src="https://cdn.curator.io/published/579820dc-fc14-4684-b98a-b6eadae1a234.js";
+e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+})();
+</script>
 </body>
-
 </html>
