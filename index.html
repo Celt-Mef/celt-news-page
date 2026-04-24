@@ -478,5 +478,75 @@ i.src="https://cdn.curator.io/published/579820dc-fc14-4684-b98a-b6eadae1a234.js"
 e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
 })();
 </script>
+<script>
+(function() {
+  // Turkish translations map: English text => Turkish text
+  var TR = {
+    "CELT News":                    "CELT Haberleri",
+    "UPCOMING WORKSHOPS !":         "YAKLAŞAN ATÖLYELER !",
+    "CELT Workshops":               "CELT Atölyeleri",
+    "Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.":
+      "MEF Üniversitesi ve diğer kurumlardaki akademisyenler ve eğitimciler için tasarlanmış mesleki gelişim atölyelerini keşfedin. Oturumları inceleyin, kayıt olun ve öğretim pratiğinizi geliştirin.",
+    "Click Here to Explore":        "Keşfetmek İçin Tıklayın",
+    "Follow us":                    "Bizi Takip Edin",
+    "📄 CELT Bulletin":             "📄 CELT Bülteni",
+    "View latest":                  "Son haberleri gör",
+    "MEF University CELT":          "MEF Üniversitesi CELT",
+    "Latest posts from our LinkedIn page": "LinkedIn sayfamızdan son paylaşımlar",
+    "+ Follow":                     "+ Takip Et",
+    "Powered by Curator.io":        "Curator.io tarafından desteklenmektedir",
+    "CELT BULLETINS":               "CELT BÜLTENLERİ",
+    "CELT Bulletins":               "CELT Bültenleri",
+    "Browse all our published bulletins packed with teaching insights, research highlights, and CELT news.":
+      "Öğretim içgörüleri, araştırmadan öne çıkanlar ve CELT haberleriyle dolu tüm yayınlanmış bültenlerimizi inceleyin.",
+    "Click Here to Read & Explore": "Okumak ve Keşfetmek İçin Tıklayın"
+  };
+
+  function applyLang() {
+    var params = new URLSearchParams(window.location.search);
+    var lang = params.get('lang');
+    if (lang !== 'tr') return;
+
+    // Set page language
+    document.documentElement.lang = 'tr';
+
+    // Walk all text nodes and replace
+    function walk(node) {
+      if (node.nodeType === 3) {           // Text node
+        var original = node.nodeValue.trim();
+        if (TR[original]) {
+          node.nodeValue = node.nodeValue.replace(original, TR[original]);
+        }
+      } else {
+        for (var i = 0; i < node.childNodes.length; i++) {
+          walk(node.childNodes[i]);
+        }
+      }
+    }
+
+    // Also update title
+    if (TR[document.title]) document.title = TR[document.title];
+
+    // Run after a small delay to ensure the JS bundle has rendered
+    function tryApply(retries) {
+      walk(document.body);
+      if (retries > 0) {
+        setTimeout(function() { tryApply(retries - 1); }, 500);
+      }
+    }
+    tryApply(6);
+  }
+
+  // Run on DOMContentLoaded and after any dynamic rendering
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyLang);
+  } else {
+    applyLang();
+  }
+  window.addEventListener('load', applyLang);
+})();
+</script>
+
 </body>
 </html>
+
