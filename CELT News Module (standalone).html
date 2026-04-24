@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ext-resource-dependency" content="assets/CELTBackgroundImage.jpg" data-resource-id="celtBg" />
 <title>CELT News</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -64,7 +65,7 @@
 
   .workshop-bg {
     position: absolute; inset: 0;
-    background-image: url('assets/CELTBackgroundImage.jpg');
+    background-image: var(--celt-bg-url, url('assets/CELTBackgroundImage.jpg'));
     background-size: cover;
     background-position: center right;
     opacity: 0.22;
@@ -331,7 +332,7 @@
         UPCOMING WORKSHOPS !
       </div>
       <div class="workshop-title">CELT Workshops</div>
-      <div class="workshop-desc" style="width: 483px; height: 90px; line-height: 1.65">Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</div>
+      <div class="workshop-desc">Explore professional development workshops for MEF University instructors. Browse sessions, register and grow your teaching practice.</div>
       <a class="workshop-btn" href="https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops" target="_blank" rel="noopener" onclick="event.stopPropagation()">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
         Click Here to Explore
@@ -404,26 +405,6 @@
     </div>
 
   </div>
-
-  <!-- Bulletins Hero -->
-  <div class="workshop-hero" onclick="window.open('https://www.mef.edu.tr/en/celt/bulletins','_blank')" style="cursor:pointer;">
-    <div class="workshop-bg" style="background-position: center left;"></div>
-    <div class="workshop-overlay" style="background: linear-gradient(105deg, #2d1a6e 45%, transparent 100%);"></div>
-    <div class="workshop-content">
-      <div class="workshop-badge" style="background:#3B4AC8;">
-        <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px"><path d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm1 3v1h10V5H3zm0 3v1h7V8H3z"/></svg>
-        CELT BULLETINS
-      </div>
-      <div class="workshop-title">CELT Bulletins</div>
-      <div class="workshop-desc">Browse all our published bulletins packed with teaching insights, research highlights, and CELT news.</div>
-      <a class="workshop-btn" href="https://www.mef.edu.tr/en/celt/bulletins" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
-        Click Here to Read & Explore
-      </a>
-    </div>
-    <div class="workshop-deco"></div>
-  </div>
-
 </div>
 
 <!-- Tweaks -->
@@ -468,7 +449,36 @@
   // Apply saved defaults on load
   document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${TWEAK_DEFAULTS.accent} 45%, transparent 100%)`;
   document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
+
+  // Apply inlined background image if available
+  if (window.__resources && window.__resources.celtBg) {
+    document.documentElement.style.setProperty('--celt-bg-url', `url('${window.__resources.celtBg}')`);
+  }
 </script>
+
+<template id="__bundler_thumbnail" data-bg-color="#1a1a2e">
+  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="300" fill="#1a1a2e"/>
+    <!-- Workshop hero -->
+    <rect x="24" y="24" width="352" height="90" rx="10" fill="#3B4AC8" opacity="0.9"/>
+    <rect x="40" y="38" width="60" height="12" rx="6" fill="#E84855"/>
+    <rect x="40" y="58" width="160" height="14" rx="4" fill="white" opacity="0.9"/>
+    <rect x="40" y="78" width="120" height="8" rx="3" fill="white" opacity="0.4"/>
+    <rect x="40" y="96" width="80" height="12" rx="6" fill="white" opacity="0.8"/>
+    <!-- Social row -->
+    <circle cx="170" cy="138" r="10" fill="#0A66C2"/>
+    <circle cx="196" cy="138" r="10" fill="#dc2743"/>
+    <circle cx="222" cy="138" r="10" fill="#000"/>
+    <circle cx="248" cy="138" r="10" fill="#FF0000"/>
+    <!-- Bulletin -->
+    <rect x="24" y="160" width="110" height="120" rx="8" fill="#3B4AC8" opacity="0.7"/>
+    <rect x="24" y="252" width="110" height="28" rx="0" fill="white" opacity="0.15"/>
+    <!-- LinkedIn -->
+    <rect x="148" y="160" width="228" height="120" rx="8" fill="#0A66C2" opacity="0.3"/>
+    <rect x="148" y="160" width="228" height="24" rx="8" fill="#0A66C2"/>
+    <rect x="156" y="168" width="80" height="8" rx="3" fill="white" opacity="0.9"/>
+  </svg>
+</template>
 
 <!-- Curator.io LinkedIn Feed -->
 <script type="text/javascript">

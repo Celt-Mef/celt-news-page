@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CELT News Module — Wireframes</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Caveat+Brush&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f5f0e8;
+    font-family: 'Caveat', cursive;
+    padding: 24px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 28px;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+  .subtitle { font-size: 16px; color: #555; margin-bottom: 20px; }
+
+  /* Tab bar */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 8px 20px;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 4px;
+    font-family: 'Caveat', cursive;
+    font-size: 17px;
+    cursor: pointer;
+    background: white;
+    color: #1a1a2e;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .tab.active {
+    background: #3B4AC8;
+    color: white;
+    border-color: #3B4AC8;
+  }
+
+  .layout { display: none; }
+  .layout.active { display: block; }
+
+  /* ===== WIREFRAME ATOMS ===== */
+  .wf-frame {
+    background: white;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .wf-label {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 6px; right: 10px;
+  }
+  .wf-section-title {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 22px;
+    color: #1a1a2e;
+    padding: 10px 16px 6px;
+    border-bottom: 1.5px dashed #ccc;
+  }
+
+  /* blocks */
+  .block {
+    border: 2px solid #1a1a2e;
+    border-radius: 4px;
+    background: #f9f9f9;
+    position: relative;
+  }
+  .block.blue-fill {
+    background: #3B4AC8;
+    color: white;
+  }
+  .block.dark-fill {
+    background: #1a1a2e;
+    color: white;
+  }
+  .block.light-blue {
+    background: #dce3fb;
+  }
+  .block.coral {
+    background: #E84855;
+    color: white;
+  }
+  .block.gray-fill {
+    background: #e8e8e8;
+  }
+  .hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #ccc 0, #ccc 1px,
+      transparent 0, transparent 50%
+    );
+    background-size: 8px 8px;
+  }
+
+  .wf-text {
+    font-family: 'Caveat', cursive;
+    color: inherit;
+  }
+
+  /* annotation */
+  .annotation {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    color: #E84855;
+    background: #fff5f5;
+    border: 1.5px dashed #E84855;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-top: 10px;
+  }
+  .annotation strong { color: #c0392b; }
+
+  /* ===== LAYOUT A ===== */
+  .la-container { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .la-workshop {
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    background: #3B4AC8;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .la-workshop::before {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.2);
+  }
+  .la-workshop-text { flex: 1; }
+  .la-workshop-badge {
+    background: #E84855;
+    color: white;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .la-workshop-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .la-workshop-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 14px;
+  }
+  .la-btn {
+    border: 2.5px solid white;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+  }
+  .la-workshop-img {
+    width: 120px; height: 90px;
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  .la-row { display: flex; gap: 12px; }
+  .la-bulletin {
+    flex: 1;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .la-bulletin-header {
+    background: #1a1a2e;
+    color: white;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .la-bulletin-img {
+    width: 100%; height: 160px;
+    background: #e8e8e8;
+    background-image: repeating-linear-gradient(45deg,#ddd 0,#ddd 1px,transparent 0,transparent 50%);
+    background-size: 8px 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #888;
+    border-bottom: 1.5px solid #ccc;
+  }
+  .la-bulletin-link {
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #3B4AC8;
+    text-decoration: underline;
+  }
+
+  .la-linkedin {
+    flex: 1.2;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .la-linkedin-header {
+    background: #0A66C2;
+    color: white;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .li-icon {
+    width: 24px; height: 24px;
+    background: white;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: #0A66C2;
+    flex-shrink: 0;
+  }
+  .la-linkedin-body {
+    background: #f9f9f9;
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 6px;
+    font-size: 14px; color: #888;
+    border: none;
+    padding: 12px;
+    text-align: center;
+  }
+  .la-linkedin-body .embed-note {
+    font-size: 12px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    padding: 4px 8px;
+    color: #856404;
+  }
+
+  /* ===== LAYOUT B ===== */
+  .lb-container { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .lb-top { display: flex; gap: 12px; }
+  .lb-workshop {
+    flex: 1.4;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .lb-wf-hero {
+    height: 80px;
+    background: #3B4AC8;
+    background-image: repeating-linear-gradient(135deg,rgba(255,255,255,0.05) 0,rgba(255,255,255,0.05) 2px,transparent 0,transparent 50%);
+    background-size: 14px 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: rgba(255,255,255,0.5); gap: 6px;
+  }
+  .lb-wf-body { padding: 14px; }
+  .lb-workshop-tag {
+    font-size: 12px; font-weight: 700;
+    background: #E84855; color: white;
+    padding: 2px 10px; border-radius: 20px;
+    display: inline-block; margin-bottom: 6px;
+  }
+  .lb-workshop-title { font-size: 19px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+  .lb-workshop-desc { font-size: 14px; color: #555; margin-bottom: 10px; }
+  .lb-btn {
+    border: 2px solid #3B4AC8;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-family: 'Caveat', cursive;
+    font-size: 15px; font-weight: 700;
+    color: #3B4AC8;
+    display: inline-block;
+    background: #dce3fb;
+  }
+  .lb-sidebar { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .lb-bulletin {
+    flex: 1;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .lb-bulletin-img {
+    width: 100%; height: 80px;
+    background: #e8e8e8;
+    background-image: repeating-linear-gradient(45deg,#ddd 0,#ddd 1px,transparent 0,transparent 50%);
+    background-size: 8px 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #888;
+  }
+  .lb-bulletin-body { padding: 8px 10px; }
+  .lb-bulletin-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .lb-bulletin-link { font-size: 13px; color: #3B4AC8; text-decoration: underline; }
+
+  .lb-linkedin-card {
+    flex: 1;
+    border: 2.5px solid #0A66C2;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .lb-linkedin-header {
+    background: #0A66C2; color: white;
+    padding: 6px 10px; font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .lb-linkedin-body {
+    padding: 10px;
+    font-size: 12px; color: #555;
+    background: white;
+    min-height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+  }
+
+  .lb-bottom { display: flex; }
+
+  /* ===== LAYOUT C ===== */
+  .lc-container { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .lc-workshop {
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+  }
+  .lc-wf-side {
+    width: 200px; flex-shrink: 0;
+    background: #1a1a2e;
+    background-image: repeating-linear-gradient(45deg,rgba(255,255,255,0.04) 0,rgba(255,255,255,0.04) 2px,transparent 0,transparent 50%);
+    background-size: 14px 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .lc-wf-body { padding: 20px; flex: 1; background: white; }
+  .lc-workshop-tag {
+    font-size: 12px; font-weight: 700;
+    background: #E84855; color: white;
+    padding: 3px 12px; border-radius: 20px;
+    display: inline-block; margin-bottom: 8px;
+  }
+  .lc-workshop-title { font-size: 21px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; color: #1a1a2e; }
+  .lc-workshop-desc { font-size: 14px; color: #555; margin-bottom: 12px; }
+  .lc-btn {
+    border: 2.5px solid #1a1a2e;
+    border-radius: 4px;
+    padding: 8px 22px;
+    font-family: 'Caveat', cursive;
+    font-size: 16px; font-weight: 700;
+    color: white;
+    background: #1a1a2e;
+    display: inline-block;
+  }
+  .lc-row { display: flex; gap: 12px; }
+  .lc-bulletin {
+    flex: 1;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .lc-bulletin-img {
+    width: 100%; height: 140px;
+    background: #e8e8e8;
+    background-image: repeating-linear-gradient(45deg,#ddd 0,#ddd 1px,transparent 0,transparent 50%);
+    background-size: 8px 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #888;
+  }
+  .lc-bulletin-footer {
+    background: #1a1a2e; color: white;
+    padding: 8px 12px; font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .lc-linkedin {
+    flex: 1.5;
+    border: 2.5px solid #1a1a2e;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .lc-linkedin-header {
+    background: #0A66C2; color: white;
+    padding: 10px 14px; font-size: 15px; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lc-linkedin-body {
+    background: white;
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 6px;
+    font-size: 14px; color: #888;
+    text-align: center; padding: 12px;
+  }
+
+  /* notes panel */
+  .notes-panel {
+    max-width: 860px;
+    margin: 14px auto 0;
+    background: #fffde7;
+    border: 2px dashed #f9a825;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #5a4000;
+    line-height: 1.7;
+  }
+  .notes-panel strong { color: #c77800; }
+
+  /* linkedin note */
+  .li-note {
+    background: #fff3cd;
+    border: 1.5px dashed #ffc107;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 12px;
+    color: #856404;
+    display: inline-block;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>✏️ CELT News Module — Wireframes</h1>
+<p class="subtitle">3 layout options · sketchy draft · pick your favourite</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="showLayout('a', this)">Option A — Hero + Two Columns</button>
+  <button class="tab" onclick="showLayout('b', this)">Option B — Split: Workshop + Sidebar</button>
+  <button class="tab" onclick="showLayout('c', this)">Option C — Card Stack</button>
+</div>
+
+<!-- ======== LAYOUT A ======== -->
+<div class="layout active" id="layout-a">
+  <div class="wf-frame">
+    <div class="wf-section-title" style="font-family: 'Times New Roman'">CELT News</div>
+    <div class="la-container">
+
+      <!-- Workshop hero strip -->
+      <div class="la-workshop" style="font-family: 'Times New Roman'">
+        <div class="la-workshop-text">
+          <div class="la-workshop-badge">🎓 UPCOMING WORKSHOPS !</div>
+          <div class="la-workshop-title wf-text">CELT WORKSHOPS</div>
+          <div class="la-workshop-desc wf-text">Explore our latest workshops &amp; register now</div>
+          <div class="la-btn wf-text">🔗 Click Here to Explore →</div>
+        </div>
+        <div class="la-workshop-img wf-text">[ workshop<br>image / bg ]</div>
+      </div>
+
+      <!-- Bulletin + LinkedIn side by side -->
+      <div class="la-row">
+        <div class="la-bulletin">
+          <div class="la-bulletin-header" style="font-family: 'Times New Roman'">📄 CELT BULLETIN</div>
+          <div class="la-bulletin-img">[ bulletin cover image ]</div>
+          <div class="la-bulletin-link" style="font-family: 'Times New Roman'">↗ View Latest Bulletin</div>
+        </div>
+
+        <div class="la-linkedin">
+          <div class="la-linkedin-header" style="font-family: 'Times New Roman'">
+            <div class="li-icon">in</div>
+            MEF University CELT on LinkedIn
+          </div>
+          <div class="la-linkedin-body">
+            <span>[ LinkedIn Page Embed ]</span>
+            <span class="embed-note">⚠️ LinkedIn embed widget<br>see note below</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="notes-panel">
+    <strong>Layout A notes:</strong> Workshop is the clear hero — full-width blue banner at the top, very prominent. Bulletin and LinkedIn share equal space below. Clean, structured.<br>
+    <strong>LinkedIn:</strong> LinkedIn's company page can be embedded as an iframe pointing to your page URL. Users who are logged in will see the live feed. Non-logged-in users see a "Sign in to view" prompt — this is a LinkedIn limitation that cannot be bypassed.
+  </div>
+</div>
+
+<!-- ======== LAYOUT B ======== -->
+<div class="layout" id="layout-b">
+  <div class="wf-frame">
+    <div class="wf-section-title">CELT News</div>
+    <div class="lb-container">
+
+      <div class="lb-top">
+        <!-- Workshop card (larger, left) -->
+        <div class="lb-workshop">
+          <div class="lb-wf-hero">[ decorative background / workshop image ]</div>
+          <div class="lb-wf-body">
+            <div class="lb-workshop-tag">🎓 WORKSHOPS</div>
+            <div class="lb-workshop-title wf-text">Innovative Instruction Hub Workshops</div>
+            <div class="lb-workshop-desc wf-text">Browse all upcoming workshops and professional development sessions. Register directly through the Hub.</div>
+            <div class="lb-btn wf-text">🔗 Click Here to See Workshops →</div>
+          </div>
+        </div>
+
+        <!-- Sidebar: Bulletin + LinkedIn stacked -->
+        <div class="lb-sidebar">
+          <div class="lb-bulletin">
+            <div class="lb-bulletin-img">[ bulletin cover ]</div>
+            <div class="lb-bulletin-body">
+              <div class="lb-bulletin-title wf-text">📄 CELT Bulletin</div>
+              <div class="lb-bulletin-link wf-text">↗ Read the latest bulletin</div>
+            </div>
+          </div>
+
+          <div class="lb-linkedin-card">
+            <div class="lb-linkedin-header">
+              <div class="li-icon">in</div>
+              Latest from LinkedIn
+            </div>
+            <div class="lb-linkedin-body wf-text">[ LinkedIn embed / latest post area ]<br><span class="li-note">⚠️ requires login</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="notes-panel">
+    <strong>Layout B notes:</strong> Workshop dominates the left (with image hero strip + text + button). Bulletin and LinkedIn are neatly stacked in the right sidebar. Good if workshop is the #1 priority and you want everything in one view without scrolling.
+  </div>
+</div>
+
+<!-- ======== LAYOUT C ======== -->
+<div class="layout" id="layout-c">
+  <div class="wf-frame">
+    <div class="wf-section-title">CELT News</div>
+    <div class="lc-container">
+
+      <!-- Workshop — horizontal card with image on left -->
+      <div class="lc-workshop">
+        <div class="lc-wf-side wf-text">[ workshop<br>image ]</div>
+        <div class="lc-wf-body">
+          <div class="lc-workshop-tag">🎓 WORKSHOPS</div>
+          <div class="lc-workshop-title">Innovative Instruction Hub — Workshops</div>
+          <div class="lc-workshop-desc wf-text">Discover workshops designed for MEF instructors. Click below to browse and register.</div>
+          <div class="lc-btn wf-text">🔗 Click Here →</div>
+        </div>
+      </div>
+
+      <!-- Bulletin + LinkedIn below -->
+      <div class="lc-row">
+        <div class="lc-bulletin">
+          <div class="lc-bulletin-img">[ CELT Bulletin cover image ]</div>
+          <div class="lc-bulletin-footer">
+            <span>📄 CELT Bulletin</span>
+            <span>↗ View</span>
+          </div>
+        </div>
+
+        <div class="lc-linkedin">
+          <div class="lc-linkedin-header">
+            <div class="li-icon">in</div>
+            MEF University CELT — LinkedIn
+          </div>
+          <div class="lc-linkedin-body">
+            <span>[ LinkedIn Page Embed Widget ]</span>
+            <span class="li-note">⚠️ Users must be logged in to LinkedIn to see the feed</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="notes-panel">
+    <strong>Layout C notes:</strong> Workshop is a wide horizontal card (thumbnail left, text right — like a feature article). Below, bulletin is portrait (matches bulletin cover proportions) and LinkedIn takes up the wider right side. Very editorial feel.
+  </div>
+</div>
+
+<!-- Tweaks Panel -->
+<div id="tweaks-panel" style="display:none; position:fixed; bottom:20px; right:20px; background:white; border:2.5px solid #1a1a2e; border-radius:8px; padding:16px; width:220px; z-index:999; font-family:'Caveat',cursive; box-shadow: 4px 4px 0 #1a1a2e;">
+  <div style="font-size:18px; font-weight:700; margin-bottom:12px;">Tweaks</div>
+  <label style="font-size:15px; display:block; margin-bottom:8px;">
+    Workshop button style<br>
+    <select id="btn-style" onchange="applyTweak()" style="width:100%; font-family:'Caveat',cursive; font-size:14px; border:1.5px solid #ccc; border-radius:4px; padding:4px;">
+      <option value="outline">Outline (ghost)</option>
+      <option value="filled">Filled (solid)</option>
+      <option value="pill">Pill shape</option>
+    </select>
+  </label>
+  <label style="font-size:15px; display:block; margin-bottom:8px;">
+    <input type="checkbox" id="show-bg" onchange="applyTweak()"> Show CELT bg image hint
+  </label>
+  <label style="font-size:15px; display:block;">
+    Workshop accent<br>
+    <select id="accent" onchange="applyTweak()" style="width:100%; font-family:'Caveat',cursive; font-size:14px; border:1.5px solid #ccc; border-radius:4px; padding:4px;">
+      <option value="blue">CELT Blue</option>
+      <option value="dark">Dark Navy</option>
+      <option value="coral">Coral Red</option>
+    </select>
+  </label>
+</div>
+
+<script>
+function showLayout(id, btn) {
+  document.querySelectorAll('.layout').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('layout-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Tweaks
+window.addEventListener('message', (e) => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+});
+window.parent.postMessage({type: '__edit_mode_available'}, '*');
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "btnStyle": "outline",
+  "showBg": false,
+  "accent": "blue"
+}/*EDITMODE-END*/;
+
+function applyTweak() {
+  const btnStyle = document.getElementById('btn-style').value;
+  const showBg = document.getElementById('show-bg').checked;
+  const accent = document.getElementById('accent').value;
+  const colors = {blue:'#3B4AC8', dark:'#1a1a2e', coral:'#E84855'};
+  const c = colors[accent];
+  document.querySelectorAll('.la-workshop').forEach(el => el.style.background = c);
+  document.querySelectorAll('.lb-btn').forEach(el => {
+    el.style.borderColor = c; el.style.color = c; el.style.background = accent==='coral'?'#fdecea':'#dce3fb';
+  });
+  document.querySelectorAll('.lc-btn').forEach(el => { el.style.background = c; });
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{btnStyle, showBg, accent}}, '*');
+}
+</script>
+</body>
+</html>
