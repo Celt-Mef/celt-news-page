@@ -298,15 +298,17 @@
   }
   .linkedin-follow-btn:hover { background: #e8f0fb; }
 
-  .curator-wrap {
+  .juicer-wrap {
     flex: 1;
-    overflow-y: auto;
+    overflow: hidden;
     min-height: 300px;
-    max-height: 420px;
-    background: #f3f6f9;
-    padding: 12px;
   }
-  .curator-wrap .crt-logo { display: none; }
+  .juicer-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 420px;
+    border: none;
+  }
 
   @media (max-width: 600px) {
     .bottom-row { grid-template-columns: 1fr; }
@@ -398,8 +400,8 @@
           + Follow
         </a>
       </div>
-      <div class="curator-wrap">
-        <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+      <div class="juicer-wrap">
+        <iframe src="https://www.juicer.io/api/feeds/mef-celt/iframe" frameborder="0" width="1000" height="1000" style="display:block;margin:0 auto;width:100%;height:420px;" title="mef-celt - Juicer social media feed"></iframe>
       </div>
     </div>
 
@@ -470,14 +472,6 @@
   document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
 </script>
 
-<!-- Curator.io LinkedIn Feed -->
-<script type="text/javascript">
-(function(){
-var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";
-i.src="https://cdn.curator.io/published/579820dc-fc14-4684-b98a-b6eadae1a234.js";
-e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
-})();
-</script>
 <script>
 (function() {
   // Turkish translations map: English text => Turkish text
@@ -494,7 +488,6 @@ e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
     "MEF University CELT":          "MEF Üniversitesi CELT",
     "Latest posts from our LinkedIn page": "LinkedIn sayfamızdan son paylaşımlar",
     "+ Follow":                     "+ Takip Et",
-    "Powered by Curator.io":        "Curator.io tarafından desteklenmektedir",
     "CELT BULLETINS":               "CELT BÜLTENLERİ",
     "CELT Bulletins":               "CELT Bültenleri",
     "Browse all our published bulletins packed with teaching insights, research highlights, and CELT news.":
