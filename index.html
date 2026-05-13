@@ -476,16 +476,12 @@
   fetch('config.json?_=' + Date.now())
     .then(r => r.json())
     .then(cfg => {
-      var card = document.getElementById('bulletin-card');
-      var img  = document.getElementById('bulletin-img');
-      card.href = 'https://drive.google.com/file/d/' + cfg.bulletinDriveId + '/view?usp=sharing';
-      img.src   = cfg.bulletinThumbUrl;
+      document.getElementById('bulletin-card').href = cfg.bulletinUrl;
+      document.getElementById('bulletin-img').src   = cfg.bulletinThumbUrl;
     })
     .catch(function() {
-      // Fallback to hardcoded values if config.json is unreachable
-      var id = '1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7';
-      document.getElementById('bulletin-card').href = 'https://drive.google.com/file/d/' + id + '/view?usp=sharing';
-      document.getElementById('bulletin-img').src   = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w600';
+      document.getElementById('bulletin-card').href = 'https://drive.google.com/file/d/1YapjzcfMAt9bm0BHlc5bBJZCu5uJMGCa';
+      document.getElementById('bulletin-img').src   = 'https://www.datocms-assets.com/99182/1778574292-celt-bulletin-vol-13.jpg?auto=format&fit=clip&h=1000&w=1000';
     });
 </script>
 
