@@ -369,7 +369,6 @@
           id="bulletin-img"
           src=""
           alt="CELT Bulletin Cover"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="bulletin-fallback" style="display:none;">
           <div class="bf-uni">MEF University</div>
@@ -473,15 +472,24 @@
   document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
 
   // Load bulletin config
+  function applyBulletin(url, thumbUrl) {
+    var img = document.getElementById('bulletin-img');
+    document.getElementById('bulletin-card').href = url;
+    img.onerror = function() {
+      this.style.display = 'none';
+      this.nextElementSibling.style.display = 'flex';
+    };
+    img.src = thumbUrl;
+  }
+
   fetch('config.json?_=' + Date.now())
     .then(r => r.json())
-    .then(cfg => {
-      document.getElementById('bulletin-card').href = cfg.bulletinUrl;
-      document.getElementById('bulletin-img').src   = cfg.bulletinThumbUrl;
-    })
+    .then(cfg => applyBulletin(cfg.bulletinUrl, cfg.bulletinThumbUrl))
     .catch(function() {
-      document.getElementById('bulletin-card').href = 'https://drive.google.com/file/d/1YapjzcfMAt9bm0BHlc5bBJZCu5uJMGCa';
-      document.getElementById('bulletin-img').src   = 'https://www.datocms-assets.com/99182/1778574292-celt-bulletin-vol-13.jpg?auto=format&fit=clip&h=1000&w=1000';
+      applyBulletin(
+        'https://drive.google.com/file/d/1YapjzcfMAt9bm0BHlc5bBJZCu5uJMGCa',
+        'https://www.datocms-assets.com/99182/1778574292-celt-bulletin-vol-13.jpg?auto=format&fit=clip&h=1000&w=1000'
+      );
     });
 </script>
 
