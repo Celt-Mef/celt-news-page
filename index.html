@@ -363,10 +363,11 @@
   <div class="bottom-row">
 
     <!-- Bulletin -->
-    <a class="bulletin-card" href="https://drive.google.com/file/u/1/d/1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7/view?usp=sharing" target="_blank" rel="noopener">
+    <a class="bulletin-card" id="bulletin-card" href="#" target="_blank" rel="noopener">
       <div class="bulletin-img-wrap">
         <img
-          src="https://drive.google.com/thumbnail?id=1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7&sz=w600"
+          id="bulletin-img"
+          src=""
           alt="CELT Bulletin Cover"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
@@ -470,6 +471,22 @@
   // Apply saved defaults on load
   document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${TWEAK_DEFAULTS.accent} 45%, transparent 100%)`;
   document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
+
+  // Load bulletin config
+  fetch('config.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(cfg => {
+      var card = document.getElementById('bulletin-card');
+      var img  = document.getElementById('bulletin-img');
+      card.href = 'https://drive.google.com/file/d/' + cfg.bulletinDriveId + '/view?usp=sharing';
+      img.src   = cfg.bulletinThumbUrl;
+    })
+    .catch(function() {
+      // Fallback to hardcoded values if config.json is unreachable
+      var id = '1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7';
+      document.getElementById('bulletin-card').href = 'https://drive.google.com/file/d/' + id + '/view?usp=sharing';
+      document.getElementById('bulletin-img').src   = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w600';
+    });
 </script>
 
 <script>
