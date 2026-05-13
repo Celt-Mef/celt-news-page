@@ -482,7 +482,7 @@
     img.src = thumbUrl;
   }
 
-  fetch('config.json?_=' + Date.now())
+  fetch('https://raw.githubusercontent.com/Celt-Mef/celt-news-page/master/config.json?_=' + Date.now())
     .then(r => r.json())
     .then(cfg => applyBulletin(cfg.bulletinUrl, cfg.bulletinThumbUrl))
     .catch(function() {
