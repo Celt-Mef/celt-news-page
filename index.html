@@ -298,17 +298,97 @@
   }
   .linkedin-follow-btn:hover { background: #e8f0fb; }
 
-  .sociablekit-wrap {
+  /* ── LinkedIn feed (served by the CELT feed server, see FEED_API below) ── */
+  .li-feed {
     flex: 1;
-    overflow: hidden;
+    overflow-y: auto;
     min-height: 300px;
+    max-height: 480px;
+    background: #f3f6f9;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .sociablekit-wrap iframe {
+
+  .li-post {
     display: block;
-    width: 100%;
-    height: 1000px;
-    border: none;
+    background: white;
+    border: 1px solid #e3e8ef;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
+  .li-post:hover { border-color: var(--linkedin); box-shadow: 0 2px 10px rgba(10,102,194,0.12); }
+
+  .li-post-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .li-avatar {
+    width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0;
+    background: var(--blue); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .li-post-author { font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .li-post-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .li-post-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .li-post-media {
+    position: relative;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e9eef5;
+  }
+  .li-post-media img { display: block; width: 100%; max-height: 260px; object-fit: cover; }
+  .li-media-badge {
+    position: absolute; right: 8px; bottom: 8px;
+    background: rgba(26,26,46,0.75); color: white;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 12px;
+  }
+  .li-media-play {
+    position: absolute; inset: 0; margin: auto;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(26,26,46,0.7); color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .li-article {
+    margin-top: 10px;
+    border: 1px solid #e3e8ef;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: var(--gray);
+  }
+  .li-article-title { font-size: 13px; font-weight: 700; line-height: 1.35; }
+  .li-article-host { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .li-post-more { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--linkedin); }
+
+  .li-status {
+    margin: auto;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .li-status a { color: var(--linkedin); font-weight: 600; text-decoration: none; }
+  .li-skeleton { height: 120px; border-radius: 10px; background: linear-gradient(90deg, #e9eef5 25%, #f5f8fb 50%, #e9eef5 75%); background-size: 200% 100%; animation: li-shimmer 1.4s infinite; }
+  @keyframes li-shimmer { to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .li-skeleton { animation: none; } }
 
   @media (max-width: 600px) {
     .bottom-row { grid-template-columns: 1fr; }
@@ -323,18 +403,18 @@
 <div class="module">
   <h2 class="module-title">CELT News</h2>
 
-  <!-- Workshop Hero -->
-  <div class="workshop-hero" onclick="window.open('https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops','_blank')" style="cursor:pointer;">
+  <!-- Events Hero -->
+  <div class="workshop-hero" onclick="window.open('https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/events','_blank')" style="cursor:pointer;">
     <div class="workshop-bg"></div>
     <div class="workshop-overlay"></div>
     <div class="workshop-content">
       <div class="workshop-badge">
         <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12zm.75-9.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM7.25 6.5h1.5v5h-1.5z"/></svg>
-        UPCOMING WORKSHOPS !
+        UPCOMING EVENTS !
       </div>
-      <div class="workshop-title">CELT Workshops</div>
-      <div class="workshop-desc" style="width: 483px; height: 90px; line-height: 1.65">Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</div>
-      <a class="workshop-btn" href="https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/workshops" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+      <div class="workshop-title">CELT Events</div>
+      <div class="workshop-desc" style="width: 483px; height: 90px; line-height: 1.65">Explore professional development events designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</div>
+      <a class="workshop-btn" href="https://sites.google.com/mef.edu.tr/mef-innovative-instruction-hub/events" target="_blank" rel="noopener" onclick="event.stopPropagation()">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
         Click Here to Explore
       </a>
@@ -374,7 +454,7 @@
           <div class="bf-uni">MEF University</div>
           <div class="bf-star">✦</div>
           <div class="bf-title">CELT<br>BULLETIN</div>
-          <div class="bf-sub">Vol. 12 · 25–26 Fall</div>
+          <div class="bf-sub">Vol. 13</div>
         </div>
       </div>
       <div class="bulletin-footer">
@@ -386,7 +466,7 @@
       </div>
     </a>
 
-    <!-- LinkedIn / Curator Feed -->
+    <!-- LinkedIn Feed -->
     <div class="linkedin-card">
       <div class="linkedin-header">
         <div class="linkedin-logo">
@@ -400,8 +480,9 @@
           + Follow
         </a>
       </div>
-      <div class="sociablekit-wrap">
-        <iframe src="https://widgets.sociablekit.com/linkedin-page-posts/iframe/25683467" frameborder="0" width="100%" height="1000px" title="MEF CELT LinkedIn Posts"></iframe>
+      <div class="li-feed" id="li-feed" aria-live="polite" aria-busy="true">
+        <div class="li-skeleton"></div>
+        <div class="li-skeleton"></div>
       </div>
     </div>
 
@@ -443,14 +524,14 @@
 
   <label style="font-size:13px; display:block; margin-bottom:10px; color:#444;">
     Workshop description
-    <textarea id="tw-desc" rows="3" style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:12px; border:1.5px solid #ddd; border-radius:6px; padding:6px; resize:none;">Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</textarea>
+    <textarea id="tw-desc" rows="3" style="width:100%; margin-top:4px; font-family:'DM Sans',sans-serif; font-size:12px; border:1.5px solid #ddd; border-radius:6px; padding:6px; resize:none;">Explore professional development events designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.</textarea>
   </label>
 
   <button onclick="applyTweaks()" style="width:100%; background:#3B4AC8; color:white; border:none; border-radius:6px; padding:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;">Apply</button>
 </div>
 
 <script>
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accent":"#1a1a2e","desc":"Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice."}/*EDITMODE-END*/;
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accent":"#1a1a2e","desc":"Explore professional development events designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice."}/*EDITMODE-END*/;
 
   window.addEventListener('message', e => {
     if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
@@ -471,10 +552,16 @@
   document.querySelector('.workshop-overlay').style.background = `linear-gradient(105deg, ${TWEAK_DEFAULTS.accent} 45%, transparent 100%)`;
   document.querySelector('.workshop-desc').textContent = TWEAK_DEFAULTS.desc;
 
-  // Load bulletin config
-  function applyBulletin(url, thumbUrl) {
+  // CELT feed server: serves the LinkedIn posts and finds the newest bulletin.
+  const FEED_API = 'https://celt-feed.104-249-8-87.nip.io';
+  const LANG = new URLSearchParams(location.search).get('lang') === 'tr' ? 'tr' : 'en';
+
+  // Load bulletin: newest "Vol. N" PDF in the Drive folder (via the feed server),
+  // falling back to config.json, then to Vol. 13.
+  function applyBulletin(url, thumbUrl, volume) {
     var img = document.getElementById('bulletin-img');
     document.getElementById('bulletin-card').href = url;
+    if (volume) document.querySelector('.bf-sub').textContent = 'Vol. ' + volume;
     img.onerror = function() {
       this.style.display = 'none';
       this.nextElementSibling.style.display = 'flex';
@@ -482,15 +569,112 @@
     img.src = thumbUrl;
   }
 
-  fetch('https://raw.githubusercontent.com/Celt-Mef/celt-news-page/master/config.json?_=' + Date.now())
-    .then(r => r.json())
-    .then(cfg => applyBulletin(cfg.bulletinUrl, cfg.bulletinThumbUrl))
+  function json(url) {
+    return fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+
+  json(FEED_API + '/api/bulletin')
+    .then(b => applyBulletin(b.url, b.cover, b.volume))
+    .catch(() => json('https://raw.githubusercontent.com/Celt-Mef/celt-news-page/master/config.json?_=' + Date.now())
+      .then(cfg => applyBulletin(cfg.bulletinUrl, cfg.bulletinThumbUrl)))
     .catch(function() {
       applyBulletin(
         'https://drive.google.com/file/d/1YapjzcfMAt9bm0BHlc5bBJZCu5uJMGCa',
-        'https://www.datocms-assets.com/99182/1778574292-celt-bulletin-vol-13.jpg?auto=format&fit=clip&h=1000&w=1000'
+        'https://www.datocms-assets.com/99182/1778574292-celt-bulletin-vol-13.jpg?auto=format&fit=clip&h=1000&w=1000',
+        13
       );
     });
+</script>
+
+<!-- LinkedIn Feed -->
+<script>
+(function () {
+  const LINKEDIN_PAGE_URL = 'https://www.linkedin.com/company/mef-celt';
+  const T = {
+    en: { author: 'MEF University CELT', more: 'View on LinkedIn →', none: 'No posts to show yet.',
+          failed: 'LinkedIn posts could not be loaded right now.', seeAll: 'See our posts on LinkedIn →', now: 'Just now' },
+    tr: { author: 'MEF Üniversitesi CELT', more: "LinkedIn'de görüntüle →", none: 'Henüz gösterilecek paylaşım yok.',
+          failed: 'LinkedIn paylaşımları şu anda yüklenemiyor.', seeAll: "Paylaşımlarımızı LinkedIn'de görün →", now: 'Az önce' }
+  }[LANG];
+  const feed = document.getElementById('li-feed');
+
+  function el(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function timeAgo(ms) {
+    const days = Math.floor((Date.now() - ms) / 86400000);
+    if (days > 30) return new Date(ms).toLocaleDateString(LANG === 'tr' ? 'tr-TR' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const rtf = new Intl.RelativeTimeFormat(LANG, { numeric: 'auto' });
+    if (days >= 7) return rtf.format(-Math.floor(days / 7), 'week');
+    if (days >= 1) return rtf.format(-days, 'day');
+    const hours = Math.floor((Date.now() - ms) / 3600000);
+    return hours >= 1 ? rtf.format(-hours, 'hour') : T.now;
+  }
+
+  function renderPost(post) {
+    const card = el('a', 'li-post');
+    card.href = post.url;
+    card.target = '_blank';
+    card.rel = 'noopener';
+
+    const head = el('div', 'li-post-head');
+    head.append(el('div', 'li-avatar', 'CELT'));
+    const who = el('div');
+    who.append(el('div', 'li-post-author', T.author));
+    if (post.published_at) who.append(el('div', 'li-post-date', timeAgo(post.published_at)));
+    head.append(who);
+    card.append(head);
+
+    if (post.text) card.append(el('p', 'li-post-text', post.text));
+
+    if (post.images && post.images.length) {
+      const media = el('div', 'li-post-media');
+      const img = el('img');
+      img.src = post.images[0];
+      img.alt = '';
+      img.loading = 'lazy';
+      img.onerror = () => media.remove();
+      media.append(img);
+      if (post.is_video) media.append(el('div', 'li-media-play', '▶'));
+      if (post.image_count > 1) media.append(el('div', 'li-media-badge', '+' + (post.image_count - 1)));
+      card.append(media);
+    }
+
+    if (post.article && post.article.title) {
+      const art = el('div', 'li-article');
+      art.append(el('div', 'li-article-title', post.article.title));
+      try { art.append(el('div', 'li-article-host', new URL(post.article.url).hostname.replace(/^www\./, ''))); } catch (e) {}
+      card.append(art);
+    }
+
+    card.append(el('div', 'li-post-more', T.more));
+    return card;
+  }
+
+  function showStatus(message) {
+    const box = el('div', 'li-status');
+    box.append(el('div', null, message));
+    const link = el('a', null, T.seeAll);
+    link.href = LINKEDIN_PAGE_URL;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    box.append(link);
+    feed.replaceChildren(box);
+  }
+
+  fetch(FEED_API + '/api/posts')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      if (!data.posts || !data.posts.length) return showStatus(T.none);
+      feed.replaceChildren(...data.posts.map(renderPost));
+    })
+    .catch(() => showStatus(T.failed))
+    .finally(() => feed.setAttribute('aria-busy', 'false'));
+})();
 </script>
 
 <script>
@@ -498,10 +682,10 @@
   // Turkish translations map: English text => Turkish text
   var TR = {
     "CELT News":                    "CELT Haberleri",
-    "UPCOMING WORKSHOPS !":         "YAKLAŞAN ATÖLYELER !",
-    "CELT Workshops":               "CELT Atölyeleri",
-    "Explore professional development workshops designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.":
-      "MEF Üniversitesi ve diğer kurumlardaki akademisyenler ve eğitimciler için tasarlanmış mesleki gelişim atölyelerini keşfedin. Oturumları inceleyin, kayıt olun ve öğretim pratiğinizi geliştirin.",
+    "UPCOMING EVENTS !":            "YAKLAŞAN ETKİNLİKLER !",
+    "CELT Events":                  "CELT Etkinlikleri",
+    "Explore professional development events designed for academics and educators at MEF University and across other institutions. Browse sessions, register, and advance your teaching practice.":
+      "MEF Üniversitesi ve diğer kurumlardaki akademisyenler ve eğitimciler için tasarlanmış mesleki gelişim etkinliklerini keşfedin. Oturumları inceleyin, kayıt olun ve öğretim pratiğinizi geliştirin.",
     "Click Here to Explore":        "Keşfetmek İçin Tıklayın",
     "Follow us":                    "Bizi Takip Edin",
     "📄 CELT Bulletin":             "📄 CELT Bülteni",

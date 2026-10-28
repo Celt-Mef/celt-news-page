@@ -40,7 +40,7 @@ A static, dependency-free news module for MEF University's CELT (Center for Engl
 
 Triggered by the `?lang=tr` URL parameter. The translation dictionary is the `TR` object near the bottom of each file's `<script>` block. Translation works by walking the entire DOM tree and replacing text nodes that match dictionary keys.
 
-A retry loop (`tryApply(retries)`) re-runs the walk 6 times at 500ms intervals to catch content rendered late by Curator.io.
+A retry loop (`tryApply(retries)`) re-runs the walk 6 times at 500ms intervals to catch late-rendered content. The LinkedIn feed doesn't rely on it: it renders its own strings in the right language (`T` object in the feed script).
 
 When adding new visible text strings, add a corresponding entry to `TR` in every file that displays that text.
 
@@ -52,14 +52,16 @@ A hidden `#tweaks-panel` div exposes accent-color presets and a description text
 
 ## External Integrations
 
-- **Curator.io LinkedIn feed** — loaded via async script from CDN; feed ID: `579820dc-fc14-4684-b98a-b6eadae1a234`
-- **Google Drive bulletin thumbnail** — dynamically constructed URL from Drive file ID `1yLQNpvFkR2AmDx5gfrUqQBlOkb6Po2k7`; falls back to a CSS-drawn placeholder on `onerror`
+- **CELT feed server** (`FEED_API` in `index.html`, currently `https://celt-feed.104-249-8-87.nip.io`) — a small Flask app on the CELT VPS (source: `MrNeal01/celt-news-page`, `server/`) that holds the LinkedIn API token.
+  - `/api/posts` — latest CELT LinkedIn posts, rendered natively by the "LinkedIn Feed" script in the page language (EN/TR). On failure the card shows a link to the LinkedIn page.
+  - `/api/bulletin` — the file with the highest "Vol. N" in its name in the public "All CELT Bulletins" Drive folder. Name new uploads "CELT Bulletin Vol. N" and the card updates within an hour.
+- **`config.json`** — bulletin fallback (`bulletinUrl`, `bulletinThumbUrl`), used only if the feed server can't be reached; the hardcoded Vol. 13 values are the last resort.
 - **Social links** — MEF CELT LinkedIn, Instagram, X, YouTube (hardcoded `href` attributes)
-- **Workshop/Bulletins links** — Google Sites and MEF University URLs (hardcoded)
+- **Events/Bulletins links** — Google Sites events page and MEF University bulletins page (hardcoded)
 
 ## Key Conventions
 
 - All state changes happen via `element.style.setProperty()` or direct DOM manipulation — no framework, no virtual DOM.
 - `onclick` handlers are written inline in HTML, not via `addEventListener`.
-- Global scope is used freely; no module pattern except the Curator.io IIFE loader.
+- Global scope is used freely; the LinkedIn feed script is wrapped in an IIFE.
 - Optional chaining (`?.`) is used — requires a modern browser; do not add polyfills.
